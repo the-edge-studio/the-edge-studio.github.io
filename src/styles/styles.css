@@ -1,0 +1,110 @@
+html {
+  --color-background: light-dark(var(--color-white), var(--color-black));
+
+  --color-header: var(--color-black);
+  --color-footer: var(--color-black);
+
+  --padding: 1rem;
+  --gutter: var(--padding);
+
+  --color-link: var(--color-blue);
+  --color-link-visited: var(--color-pink);
+
+  --hr-width: 3px;
+
+  --time: 3s;
+  --time-hover: 500ms;
+  --ease: ease-in-out;
+}
+
+body {
+  overflow: hidden;
+  background-color: hsl(from var(--color-background) h s calc(l + 2));
+}
+
+header {
+  height: 4rem;
+  border-top:   var(--hr-width) solid;
+  border-image: var(--gradient) 1 0 0 0;
+  background-color: var(--color-header);
+}
+
+svg.logo {
+  height: 100%;
+  width: auto;
+}
+
+main { max-width: 50rem }
+section {
+  padding: 2rem;
+  background-color: hsl(from var(--color-background) h s calc(l + 5));
+  border-radius: 1rem;
+}
+
+main a {
+  color: var(--color-link);
+  &:visited { color: var(--color-link-visited) }
+}
+a:not(:has(svg)) {
+  position: relative;
+  &::after {
+    content: "";
+    border-bottom: 2px solid currentcolor;
+    position: absolute;
+    width: 100%;
+    bottom: -3px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--time-hover) var(--ease);
+  }
+  &:hover::after { transform: scaleX(1) }
+}
+
+hr {
+  border: none;
+  max-width: 50%;
+  height: var(--hr-width);
+  background: var(--gradient);
+}
+
+body { cursor: none }
+body > * { cursor: auto }
+
+svg.pinwheel {
+  width: 4rem;
+  margin: 0 auto;
+  stroke: none;
+  cursor: none;
+  pointer-events: none;
+  z-index: -1;
+
+  path:first-of-type  { fill: var(--color-orange) }
+  path:nth-of-type(2) { fill: var(--color-red)    }
+  path:nth-of-type(3) { fill: var(--color-pink)   }
+  path:nth-of-type(4) { fill: var(--color-blue)   }
+  path:nth-of-type(5) { fill: var(--color-green)  }
+  path:last-of-type   { fill: var(--color-yellow) }
+  
+  g {
+    transform-origin: center;
+    rotate: 1turn;
+    animation: spin 1s infinite linear;
+  }
+}
+@keyframes spin {
+  to { rotate: initial }
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding);
+  background-color: var(--color-footer);
+
+  & svg.lucide-mail {
+    width: 1em;
+    margin-bottom: -8px;
+  }
+}

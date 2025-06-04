@@ -1,0 +1,57 @@
+:root {
+  --edge-stroke-width: 2rem;
+  --line-stroke-width: calc(var(--edge-stroke-width) * 0.75);
+
+  --time:        1s;
+  --time-line:   calc(var(--time) / 1.5);
+  --delay-line:  var(--time-line);
+
+  --ease-curve:  ease-in-out;
+  --ease-edge:   cubic-bezier(0.3, 0, 0.58, 1);
+  --ease-line:   ease-out;
+}
+
+svg.logo {
+  stroke: currentcolor;
+  path {
+    fill: none;
+    stroke-width: var(--edge-stroke-width)
+  }
+}
+
+svg.logo.animate path#curve { animation: curve var(--time) var(--ease-curve) }
+@keyframes curve { from {
+  --anchor-point: 15rem;
+  transform: translate(var(--anchor-point), var(--anchor-point))
+}}
+
+path#horizontal,
+path#vertical   { transform-origin: bottom right }
+svg.logo.animate path#horizontal { animation: horizontal var(--time) var(--ease-edge) }
+svg.logo.animate path#vertical   { animation: vertical   var(--time) var(--ease-edge) }
+@keyframes horizontal { from { scale: 0 1 }}
+@keyframes vertical   { from { scale: 1 0 }}
+
+path.line:nth-of-type(2) { stroke-linecap: round }
+path.line {
+  stroke-linecap: square;
+  stroke-width: var(--line-stroke-width);
+}
+svg.logo.animate path.line {
+  transform: translateX(50%);
+  animation: line  var(--time-line) forwards var(--ease-line);
+  animation-delay: var(--delay-line)
+}
+@keyframes line { to { transform: initial }}
+
+clipPath#mask rect {
+  --mask-size: 20rem;
+  width:  var(--mask-size);
+  height: var(--mask-size);
+}
+
+svg.logo.gradient path#curve { fill: white }
+svg.logo.gradient {
+  stroke: black;
+  background: var(--gradient)
+}
